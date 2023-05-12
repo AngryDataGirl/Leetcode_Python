@@ -1,0 +1,24 @@
+```python
+class Solution:
+  def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+    #create dictionary (which is the same as a hash table)
+    table = {}
+
+    #loop through list of numbers to store them in the dictionary, where num[i] is the number and i is the index for the number
+    #you can't flip them because the same number might show up twice, and you have to go into the dict to look at value to compare
+    for i in range(len(nums)):
+      table[nums[i]] = i
+      
+    #loop through the list of numbers again
+    for i in range(len(nums)):
+      
+      #to calculate the complement
+      complement = target - nums[i]
+
+      #check if complement in dictionary, and return the index of the complement, and index of original number
+      #the AND checks to see if complement index is same as original number index bc you can't use the same number twice
+      
+      if complement in table and table[complement] != i:
+        return [i, table[complement]]
+```
