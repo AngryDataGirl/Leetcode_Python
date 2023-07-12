@@ -31,6 +31,28 @@ class Solution:
 
         return merged_string
 ```
+faster
+
+```python
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+
+        str_merged = ""
+
+        if len(word1) >= len(word2):
+            longest_word = word1
+        else:
+            longest_word = word2
+
+        for i in range(len(longest_word)):
+            if i+1 <= len(word1):
+                str_merged += word1[i]
+            
+            if i+1 <= len(word2):
+                str_merged += word2[i]
+        
+        return str_merged
+```
 
 ### 389. Find the Difference
 https://leetcode.com/problems/find-the-difference/
