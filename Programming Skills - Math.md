@@ -2,6 +2,20 @@
 
 ## Math
 
+### 1491. Average Salary Excluding the Minimum and Maximum Salary
+https://leetcode.com/problems/average-salary-excluding-the-minimum-and-maximum-salary/
+
+````python
+class Solution:
+    def average(self, salary: List[int]) -> float:
+
+        salary.remove(min(salary))
+        salary.remove(max(salary))
+
+        # print(min_sal, max_sal)
+        return sum(salary)/len(salary)
+```
+
 ### 860. Lemonade Change
 https://leetcode.com/problems/lemonade-change/
 
