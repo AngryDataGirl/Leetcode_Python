@@ -122,6 +122,22 @@ class Solution:
         else:
             return False
 ```
+### 283. Move Zeroes
+https://leetcode.com/problems/move-zeroes/
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for x in reversed(range(len(nums))):
+            print(x)
+            if nums[x] == 0:
+                end = nums.pop(x)
+                nums.append(end)    
+        return
+```
 
 ### 66. Plus One
 https://leetcode.com/problems/plus-one/
