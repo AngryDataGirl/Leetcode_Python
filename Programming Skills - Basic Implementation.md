@@ -84,6 +84,38 @@ class Solution:
         return str(list(t_dict.keys())[list(t_dict.values()).index(1)]) 
 ```
 
+### 28. Find the Index of the First Occurrence in a String
+https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+
+```python
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        
+        # Declare m and n as variables
+        m = len(needle)
+        n = len(haystack)
+
+        # window start
+        ws = 0
+
+        # iterate window_start
+        # print("end range", n - m + 1)
+
+        for ws in range(n - m + 1):
+            # print("...WS loop, window is at",ws)
+            # iterate haystack
+            for x in range(m):
+                # print("...needle[x] loop")
+                # print("index =",x,"needle[x] =",needle[x])
+                if needle[x] != haystack[ws + x]:
+                    # print("BREAK", needle[x], "!=", haystack[ws+x])
+                    break
+                if x == m - 1:
+                    return ws
+
+        return -1
+```
+
 ### 242. Valid Anagram
 https://leetcode.com/problems/valid-anagram/
 
