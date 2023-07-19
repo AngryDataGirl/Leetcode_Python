@@ -195,3 +195,26 @@ class Solution:
 
         return res
 ```
+
+### 1822. Sign of the Product of an Array
+https://leetcode.com/problems/sign-of-the-product-of-an-array/
+
+```python
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+
+        # don't need product, just count sign 
+        neg_num = 0 
+
+        for x in range(len(nums)):
+            if nums[x] == 0:
+                return 0
+            if nums[x] < 0:
+                neg_num += 1
+        print(neg_num)
+
+        if neg_num % 2 == 0:
+            return 1
+        else:
+            return -1
+```
