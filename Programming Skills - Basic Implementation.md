@@ -218,3 +218,33 @@ class Solution:
         else:
             return -1
 ```
+
+### 13. Roman to Integer
+https://leetcode.com/problems/roman-to-integer/
+
+```python
+class Solution:
+    def romanToInt(self, s: str) -> int:
+
+        #create dictionary 
+        dictionary = {"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+
+        #iterate through string and check for int number
+        cumulative = 0
+        prev_num = 0
+
+        for letter in s:
+            # print ("letter: ", letter)
+            # print("current num: ",dictionary[letter])
+            # print("prev_num: ", prev_num)
+            # print("cumulative before: ", cumulative)
+            if letter in dictionary:
+                if prev_num < dictionary[letter]:
+                    cumulative += dictionary[letter] - prev_num - prev_num
+                else:
+                    cumulative += dictionary[letter]    
+            # print("cumulative after: ", cumulative)
+            prev_num = dictionary[letter]
+            # print("----")
+        return cumulative
+```
