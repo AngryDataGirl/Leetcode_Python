@@ -219,6 +219,48 @@ class Solution:
             return -1
 ```
 
+### 1502. Can Make Arithmetic Progression From Sequence
+https://leetcode.com/problems/can-make-arithmetic-progression-from-sequence/
+
+```python
+class Solution:
+    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:
+
+        arr.sort()
+
+        diff_list = []
+
+        for i in range(len(arr)-1):
+            diff = arr[i+1] - arr[i]
+            diff_list.append(diff)
+
+        return len(set(diff_list)) == 1
+```
+
+### Monotonic Array
+https://leetcode.com/problems/monotonic-array/
+
+```python
+class Solution:
+    def isMonotonic(self, nums: List[int]) -> bool:
+        
+        # One Pass (Simple Variant)
+        
+        # we want it to set to false if untrue 
+        increasing = decreasing = True 
+
+        # iterate through range, -1 to prevent it from going out of range  
+        for x in range(len(nums)-1):
+
+            # store diff 
+            if nums[x] > nums[x+1]:
+                increasing = False 
+            if nums[x] < nums[x+1]:
+                decreasing = False 
+            
+        return increasing or decreasing 
+```
+
 ### 13. Roman to Integer
 https://leetcode.com/problems/roman-to-integer/
 
