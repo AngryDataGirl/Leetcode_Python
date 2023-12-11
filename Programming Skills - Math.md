@@ -1,3 +1,9 @@
+- [Programming Skills](#programming-skills)
+  - [Math](#math)
+    - [1491. Average Salary Excluding the Minimum and Maximum Salary](#1491-average-salary-excluding-the-minimum-and-maximum-salary)
+    - [860. Lemonade Change](#860-lemonade-change)
+
+
 # Programming Skills 
 
 ## Math

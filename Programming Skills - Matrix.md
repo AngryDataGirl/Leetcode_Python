@@ -1,3 +1,8 @@
+- [Programming Skills](#programming-skills)
+  - [Matrix](#matrix)
+    - [1672. Richest Customer Wealth](#1672-richest-customer-wealth)
+    - [1572. Matrix Diagonal Sum](#1572-matrix-diagonal-sum)
+
 # Programming Skills
 
 ## Matrix
