@@ -1,3 +1,4 @@
+- [Resources](#resources)
 - [Two pointer](#two-pointer)
   - [1 input, opposite ends](#1-input-opposite-ends)
   - [2 inputs, exhaust both](#2-inputs-exhaust-both)
@@ -26,6 +27,9 @@
 - [Backtracking](#backtracking)
 - [Dynamic programming](#dynamic-programming)
 - [Build a tree](#build-a-tree)
+
+# Resources
+https://leetcode.com/explore/interview/card/cheatsheets/720/resources/4725/
 
 # Two pointer
 
