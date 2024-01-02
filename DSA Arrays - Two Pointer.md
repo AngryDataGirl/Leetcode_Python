@@ -1,6 +1,13 @@
 - [1. Two Sum](#1-two-sum)
 - [9. Palindrome Number](#9-palindrome-number)
 - [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
+- [27. Remove Element](#27-remove-element)
+- [125. Valid Palindrome](#125-valid-palindrome)
+- [217. Contains Duplicate](#217-contains-duplicate)
+- [344. Reverse String](#344-reverse-string)
+- [345. Reverse Vowels of  String](#345-reverse-vowels-of--string)
+  - [2540. Minimum Common Value](#2540-minimum-common-value)
+- [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
 
 ### 1. Two Sum
 
@@ -119,4 +126,182 @@ class Solution:
                 j += 1
             
         return j
-        ```
+```
+
+### 27. Remove Element
+
+```python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        # start both indexes at 1 
+        i = j = 0
+
+        # [0,1,2,2,3,0,4,2]
+        #  i
+        #  j
+
+        for i in range(len(nums)):
+            # check if previous element = current element
+            if nums[i] == val:
+                pass
+            else:
+                nums[j] = nums[i]
+                j += 1
+            
+        return j
+```
+
+### 125. Valid Palindrome
+
+```python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        
+        # "A man, a plan, a canal: Panama"
+           #i 
+                                      #j
+        # initialize pointer
+        i = 0
+        j = len(s)-1
+
+        while i < j:
+            # increment i if s[i] is not a letter or number 
+            while i < j and not s[i].isalnum():
+                i += 1
+            # control j if s[j] is not a letter or number
+            while j > i and not s[j].isalnum():
+                j -= 1
+            # check if same
+            if s[i].lower() != s[j].lower():
+                return False
+            # if letters are the same then need to increment i & j to continue
+            i += 1
+            j -= 1
+
+        return True
+```
+
+### 217. Contains Duplicate
+
+regular solution
+
+```python
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        print(nums)
+        print(set(nums))
+        return len(nums) != len(set(nums))
+```        
+
+### 344. Reverse String
+
+```python
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        
+        # ["h","e","l","l","o"]
+           #i
+                            #j
+        # ["h","e","l","l","o"]
+               #i
+                        #j
+        # ["h","e","l","l","o"]
+                   #i
+                   #j           
+        
+        i = 0
+        j = len(s)-1
+
+        while i < j: 
+            s[i],s[j] = s[j],s[i] # have to increment at the same time otherwise you will overwrite before you can swap 
+            i +=1
+            j -=1         # you can also write it like this in one line i,j = i+1j-1 
+```
+
+### 345. Reverse Vowels of  String
+
+```python
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        
+        s_list = []
+        for x in s:
+            s_list.append(x)
+        print(s_list)
+
+        i = 0
+        j = len(s_list)-1
+
+        while i < j: 
+            # print(s[i],s[j])
+            while i < j and s_list[i].lower() not in ('a','e','o','i','u'):
+                i += 1 
+            while j > i and s_list[j].lower() not in ('a','e','o','i','u'):
+                j -= 1
+            s_list[i],s_list[j] = s_list[j],s_list[i] # have to increment at the same time otherwise you will overwrite before you can swap 
+            i +=1
+            j -=1         # you can also write it like this in one line i,j = i+1j-1 
+        return "".join(s_list)
+```
+
+#### 2540. Minimum Common Value
+
+```python
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+    
+        # initialize pointers
+        i=j=0
+
+        # make pointers race, nested while loop takes too long and times out
+        while i < len(nums1) and j < len(nums2): 
+            if nums1[i] > nums2[j]:
+                j += 1
+            elif nums1[i] < nums2[j]:
+                i += 1
+            else:
+                return nums1[i]
+        return -1 
+
+```
+
+### 557. Reverse Words in a String III
+
+```python
+class Solution:
+    def reverseWords(self, s: str) -> str:
+
+        reconstructed = []
+
+        words = s.split(" ")
+
+        for word in words:
+            word_as_list = []
+            for letter in word:
+                word_as_list.append(letter)
+
+            i = 0
+            j = len(word_as_list) -1
+
+            while i <= j:
+                # [ 1    2    3    4 ]
+                # ['t', 'a', 'k', 'e']
+                #   i
+                #                  j
+
+                word_as_list[i],word_as_list[j] = word_as_list[j],word_as_list[i]
+                i += 1
+                j -= 1
+
+            reversed_words = ("").join(word_as_list)
+            # print(reversed_words) 
+            reconstructed.append(reversed_words)
+            # print(reconstructed)
+            x = (" ").join(reconstructed)
+
+        return x
+
+```
