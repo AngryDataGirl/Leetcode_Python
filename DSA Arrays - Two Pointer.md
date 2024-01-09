@@ -6,10 +6,13 @@
 - [217. Contains Duplicate](#217-contains-duplicate)
 - [344. Reverse String](#344-reverse-string)
 - [345. Reverse Vowels of  String](#345-reverse-vowels-of--string)
-  - [2540. Minimum Common Value](#2540-minimum-common-value)
 - [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
+- [832. Flipping an Image](#832-flipping-an-image)
+- [2000. Reverse Prefix of Word](#2000-reverse-prefix-of-word)
+  - [2540. Minimum Common Value](#2540-minimum-common-value)
 
 ### 1. Two Sum
+https://leetcode.com/problems/two-sum/
 
 The other method (not two - pointer), more space since you create a dictionary 
 ```python
@@ -129,6 +132,7 @@ class Solution:
 ```
 
 ### 27. Remove Element
+https://leetcode.com/problems/remove-element/
 
 ```python
 class Solution:
@@ -152,6 +156,7 @@ class Solution:
 ```
 
 ### 125. Valid Palindrome
+https://leetcode.com/problems/valid-palindrome/
 
 ```python
 class Solution:
@@ -182,6 +187,7 @@ class Solution:
 ```
 
 ### 217. Contains Duplicate
+https://leetcode.com/problems/contains-duplicate/
 
 regular solution
 
@@ -194,6 +200,7 @@ class Solution:
 ```        
 
 ### 344. Reverse String
+https://leetcode.com/problems/reverse-string/
 
 ```python
 class Solution:
@@ -222,7 +229,7 @@ class Solution:
 ```
 
 ### 345. Reverse Vowels of  String
-
+https://leetcode.com/problems/reverse-vowels-of-a-string/
 ```python
 class Solution:
     def reverseVowels(self, s: str) -> str:
@@ -247,28 +254,8 @@ class Solution:
         return "".join(s_list)
 ```
 
-#### 2540. Minimum Common Value
-
-```python
-class Solution:
-    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
-    
-        # initialize pointers
-        i=j=0
-
-        # make pointers race, nested while loop takes too long and times out
-        while i < len(nums1) and j < len(nums2): 
-            if nums1[i] > nums2[j]:
-                j += 1
-            elif nums1[i] < nums2[j]:
-                i += 1
-            else:
-                return nums1[i]
-        return -1 
-
-```
-
 ### 557. Reverse Words in a String III
+https://leetcode.com/problems/reverse-words-in-a-string-iii/
 
 ```python
 class Solution:
@@ -303,5 +290,113 @@ class Solution:
             x = (" ").join(reconstructed)
 
         return x
+
+```
+
+### 832. Flipping an Image
+https://leetcode.com/problems/flipping-an-image/
+
+```python
+class Solution:
+    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
+
+        # it is an n x n matrix, so this is fine
+        image_len = len(image) -1
+        row_len = image_len
+  
+        # set pointers
+        row = 0
+        i = 0
+        j = image_len
+
+        # [[0,1,2],[0,1,2],[0,1,2]] #index
+        # [[1,1,0],[1,0,1],[0,0,0]] # numbers
+        #   i  
+        #       j
+        # [[0,1,1],[1,0,1],[0,0,0]] # result
+        
+        # set up while loop to loop over the rows in the image
+        while row <= image_len:
+            # print("outer loop",image[row])
+            while i < j:
+                image[row][i],image[row][j] = image[row][j],image[row][i]
+                i += 1
+                j -= 1
+                # print("After swap",image[row])                
+            # increment row 
+            row += 1
+            i = 0
+            j = image_len
+
+        for row in range(image_len + 1):
+            for x in range(row_len + 1):
+                if image[row][x] == 1:
+                    image[row][x] = 0
+                else:
+                    image[row][x] = 1 
+
+        return image
+```
+
+### 2000. Reverse Prefix of Word
+https://leetcode.com/problems/reverse-prefix-of-word/
+
+```python
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        
+        # find the index of the letter, if index less than 0 there is no operation to be done so return 
+        if word.find(ch) <= 0:
+            return word
+        
+        # create list to store word
+        word_to_list = []
+
+        # make a word a list to iterate over it 
+        for letter in word:
+            word_to_list.append(letter)
+
+        # create pointers 
+        i = 0 
+        j = word.find(ch)
+
+        # [ 0,   1,   2,   3,  'e', 'f', 'd']
+        # ['a', 'b', 'c', 'd', 'e', 'f', 'd']
+        # ['d', 'b', 'c', 'a', 'e', 'f', 'd']
+        #   i
+        #                  j
+        # ['a', 'b', 'c', 'd', 'e', 'f', 'd']
+        # ['d', 'b', 'c', 'a', 'e', 'f', 'd']
+        #        i
+        #             j
+        while i <= j:
+            word_to_list[i],word_to_list[j] = word_to_list[j],word_to_list[i]
+            print(word_to_list[i],word_to_list[j])
+            print(i, j)
+            i += 1
+            j -= 1
+
+        return ''.join(word_to_list)
+```
+
+#### 2540. Minimum Common Value
+https://leetcode.com/problems/minimum-common-value/
+
+```python
+class Solution:
+    def getCommon(self, nums1: List[int], nums2: List[int]) -> int:
+    
+        # initialize pointers
+        i=j=0
+
+        # make pointers race, nested while loop takes too long and times out
+        while i < len(nums1) and j < len(nums2): 
+            if nums1[i] > nums2[j]:
+                j += 1
+            elif nums1[i] < nums2[j]:
+                i += 1
+            else:
+                return nums1[i]
+        return -1 
 
 ```
