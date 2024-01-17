@@ -9,7 +9,9 @@
 - [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
 - [832. Flipping an Image](#832-flipping-an-image)
 - [2000. Reverse Prefix of Word](#2000-reverse-prefix-of-word)
+- [2108. Find First Palindromic String in the Array](#2108-find-first-palindromic-string-in-the-array)
   - [2540. Minimum Common Value](#2540-minimum-common-value)
+- [905. Sort Array By Parity](#905-sort-array-by-parity)
 
 ### 1. Two Sum
 https://leetcode.com/problems/two-sum/
@@ -378,6 +380,42 @@ class Solution:
 
         return ''.join(word_to_list)
 ```
+### 2108. Find First Palindromic String in the Array
+https://leetcode.com/problems/find-first-palindromic-string-in-the-array/
+
+```python
+class Solution:
+    def firstPalindrome(self, words: List[str]) -> str:
+
+        for word in words:
+            # change word to list to iterate over letters
+            word_as_list = []
+            for letter in word:
+                word_as_list.append(letter)      
+            print(word_as_list)
+            
+            if len(word_as_list) == 1:
+                return "".join(word_as_list)
+                
+            # now check if word is palindrome
+            i = 0
+            j = len(word_as_list)-1
+
+            while i < j:
+                if word_as_list[i] != word_as_list[j]:
+                    print(word_as_list[i],word_as_list[j])
+                    print("break")
+                    break
+                i += 1
+                j -= 1
+                if i == j or i > j:
+                    print(i,j)
+                    return "".join(word_as_list)
+                else: 
+                    pass
+
+        return ""
+```
 
 #### 2540. Minimum Common Value
 https://leetcode.com/problems/minimum-common-value/
@@ -399,4 +437,33 @@ class Solution:
                 return nums1[i]
         return -1 
 
+```
+
+### 905. Sort Array By Parity
+https://leetcode.com/problems/sort-array-by-parity/
+
+```python
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        
+        # set up pointer
+        i = 0
+        j = len(nums)-1
+
+        #  0  1  2  3  ## the index
+        # [3, 1, 2, 4] ## the nums list 
+        #  i     
+        #           j     
+
+        while i < j:
+            while nums[i] % 2 == 0 and i < j:
+                i += 1
+            while nums[j] % 2 != 0 and j > i:
+                j -= 1
+
+            nums[i],nums[j] = nums[j],nums[i]
+            i += 1
+            j -= 1
+            
+        return nums
 ```
