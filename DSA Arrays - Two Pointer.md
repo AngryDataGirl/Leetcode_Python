@@ -15,6 +15,7 @@
 - [2108. Find First Palindromic String in the Array](#2108-find-first-palindromic-string-in-the-array)
   - [2441. 2441. Largest Positive Integer That Exists With Its Negative](#2441-2441-largest-positive-integer-that-exists-with-its-negative)
   - [2540. Minimum Common Value](#2540-minimum-common-value)
+- [2562. Find the Array Concatenation Value](#2562-find-the-array-concatenation-value)
 - [905. Sort Array By Parity](#905-sort-array-by-parity)
 
 ### 1. Two Sum
@@ -306,8 +307,7 @@ class Solution:
         i = j = 0 
 
         intersection = []
-
-        print(len(short), len(long))        
+    
         while i <= len(short)-1:
             while j <= len(long)-1:
                 if short[i] == long[j] and short[i] not in intersection:
@@ -595,6 +595,31 @@ class Solution:
                 return nums1[i]
         return -1 
 
+```
+
+### 2562. Find the Array Concatenation Value
+https://leetcode.com/problems/find-the-array-concatenation-value/
+
+```python
+class Solution:
+    def findTheArrayConcVal(self, nums: List[int]) -> int:
+        
+        i = 0 
+        j = len(nums) -1 
+
+        concat_total = 0
+
+        while i < len(nums) and j >= i:
+            if j > i:
+                concat_val = str(nums[i])+str(nums[j])
+                concat_total = concat_total + int(concat_val)
+            elif j == i:
+                concat_total = concat_total + nums[i]
+
+            j -= 1
+            i += 1 
+        
+        return concat_total
 ```
 
 ### 905. Sort Array By Parity
