@@ -6,10 +6,14 @@
 - [217. Contains Duplicate](#217-contains-duplicate)
 - [344. Reverse String](#344-reverse-string)
 - [345. Reverse Vowels of  String](#345-reverse-vowels-of--string)
+- [349. Intersection of Two Arrays](#349-intersection-of-two-arrays)
+- [392. Is Subsequence](#392-is-subsequence)
 - [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
 - [832. Flipping an Image](#832-flipping-an-image)
+- [1089. Duplicate Zeros](#1089-duplicate-zeros)
 - [2000. Reverse Prefix of Word](#2000-reverse-prefix-of-word)
 - [2108. Find First Palindromic String in the Array](#2108-find-first-palindromic-string-in-the-array)
+  - [2441. 2441. Largest Positive Integer That Exists With Its Negative](#2441-2441-largest-positive-integer-that-exists-with-its-negative)
   - [2540. Minimum Common Value](#2540-minimum-common-value)
 - [905. Sort Array By Parity](#905-sort-array-by-parity)
 
@@ -256,6 +260,101 @@ class Solution:
         return "".join(s_list)
 ```
 
+### 349. Intersection of Two Arrays
+
+non-pointer solution
+```python
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        
+        # find longer array
+        if len(nums1) > len(nums2):
+            longer_nums = nums1
+            shorter_nums = nums2
+        else:
+            longer_nums = nums2
+            shorter_nums = nums1
+
+        intersection = []
+
+        for x in longer_nums:
+            if x in shorter_nums:
+                intersection.append(x)
+
+        return set(intersection)
+```
+built-in set intersection
+```python
+class Solution:
+    def intersection(self, nums1, nums2):
+        set1 = set(nums1)
+        set2 = set(nums2)
+        return list(set2 & set1)
+```
+
+2-pointer solutiuon
+```python
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        
+        # find shorter array
+        if len(nums1) > len(nums2):
+            long, short = nums1, nums2
+        else:
+            long, short = nums2, nums1
+            
+        i = j = 0 
+
+        intersection = []
+
+        print(len(short), len(long))        
+        while i <= len(short)-1:
+            while j <= len(long)-1:
+                if short[i] == long[j] and short[i] not in intersection:
+                    intersection.append(short[i])
+                j += 1 
+            i += 1
+            j = 0
+        
+        return intersection
+```
+
+### 392. Is Subsequence
+https://leetcode.com/problems/is-subsequence/
+
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        
+        i = 0
+        j = 0
+
+        # s is always the subsequence 
+        
+        # a b c
+        #     j
+        
+        # a h b g d c
+        #           i 
+
+        # ????????
+        if len(s) == 0:
+            return True
+
+        while i <= len(t) - 1:
+            print(t[i])
+            if t[i] == s[j]:
+                j += 1
+            
+            if j > len(s) -1:
+                return True
+
+            i += 1
+
+        return False
+
+```
+
 ### 557. Reverse Words in a String III
 https://leetcode.com/problems/reverse-words-in-a-string-iii/
 
@@ -339,6 +438,35 @@ class Solution:
 
         return image
 ```
+### 1089. Duplicate Zeros
+https://leetcode.com/problems/duplicate-zeros/
+
+```python
+class Solution:
+    def duplicateZeros(self, arr: List[int]) -> None:
+        """
+        Do not return anything, modify arr in-place instead.
+        """
+        
+        i = 0 
+        j = len(arr)-1 # start j from the end bc going forward you would be overwriting elements
+
+        # [1,0,2,3,0,4,5,0]
+        #    i
+        #                j
+        
+        while i < len(arr)-1:
+            if arr[i] ==0:
+                while j > i:
+                    arr[j] = arr[j-1]
+                    j -= 1
+                i += 2 # skip over the duplicated 0
+                j = len(arr)-1 # reset j
+            else:
+                i += 1
+        
+        return arr
+```
 
 ### 2000. Reverse Prefix of Word
 https://leetcode.com/problems/reverse-prefix-of-word/
@@ -415,6 +543,36 @@ class Solution:
                     pass
 
         return ""
+```
+
+#### 2441. 2441. Largest Positive Integer That Exists With Its Negative
+https://leetcode.com/problems/largest-positive-integer-that-exists-with-its-negative/
+
+```python
+class Solution:
+    def findMaxK(self, nums: List[int]) -> int:
+        
+        i = 0
+        j = len(nums)-1
+        largest_int = 0
+
+        # [-1,10,6,7,-7,1]
+        #          i           
+        #             j
+        
+        while i < j:
+            while nums[i] + nums[j] != 0 and j > i:
+                j -= 1
+            if nums[i] + nums[j] == 0 and i != j and abs(nums[j]) > largest_int:
+                largest_int = abs(nums[j])
+                        
+            j = len(nums)-1
+            i += 1
+        
+        if largest_int == 0:
+            return -1 
+        else:
+            return largest_int
 ```
 
 #### 2540. Minimum Common Value
