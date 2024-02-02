@@ -4,19 +4,25 @@
 - [27. Remove Element](#27-remove-element)
 - [125. Valid Palindrome](#125-valid-palindrome)
 - [217. Contains Duplicate](#217-contains-duplicate)
+- [246. Strobogrammatic Number](#246-strobogrammatic-number)
 - [344. Reverse String](#344-reverse-string)
 - [345. Reverse Vowels of  String](#345-reverse-vowels-of--string)
 - [349. Intersection of Two Arrays](#349-intersection-of-two-arrays)
 - [392. Is Subsequence](#392-is-subsequence)
 - [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
 - [832. Flipping an Image](#832-flipping-an-image)
+- [905. Sort Array By Parity](#905-sort-array-by-parity)
 - [1089. Duplicate Zeros](#1089-duplicate-zeros)
+- [1470. Shuffle the Array](#1470-shuffle-the-array)
+- [1528. Shuffle String](#1528-shuffle-string)
+- [1662. Check If Two String Arrays are Equivalent](#1662-check-if-two-string-arrays-are-equivalent)
 - [2000. Reverse Prefix of Word](#2000-reverse-prefix-of-word)
 - [2108. Find First Palindromic String in the Array](#2108-find-first-palindromic-string-in-the-array)
   - [2441. 2441. Largest Positive Integer That Exists With Its Negative](#2441-2441-largest-positive-integer-that-exists-with-its-negative)
   - [2540. Minimum Common Value](#2540-minimum-common-value)
 - [2562. Find the Array Concatenation Value](#2562-find-the-array-concatenation-value)
-- [905. Sort Array By Parity](#905-sort-array-by-parity)
+- [2824. Count Pairs Whose Sum is Less than Target](#2824-count-pairs-whose-sum-is-less-than-target)
+- [2942. Find Words Containing Character](#2942-find-words-containing-character)
 
 ### 1. Two Sum
 https://leetcode.com/problems/two-sum/
@@ -205,6 +211,33 @@ class Solution:
         print(set(nums))
         return len(nums) != len(set(nums))
 ```        
+
+### 246. Strobogrammatic Number
+https://leetcode.com/problems/strobogrammatic-number/
+
+```python
+class Solution:
+    def isStrobogrammatic(self, num: str) -> bool:
+        
+        # use palindrome logic since it would have to be symmetrical --- (0,1,8) or (6 and 9)
+        i = 0
+        j = len(num) -1
+
+        while i <= j:
+            if (num[i] == '6' and num[j] != '9') or (num[i] != '6' and num[j] == '9') or (num[i] == '9' and num[j] != '6') or (num[i] != '9' and num[j] == '6'):
+                return False
+            if num[i] in ('0','1','8') and num[i] != num[j]:
+                return False
+            if num[i] not in ('0','1','6','8','9'):
+                return False
+            else:
+                pass
+
+            i += 1 
+            j -= 1
+
+        return True
+```
 
 ### 344. Reverse String
 https://leetcode.com/problems/reverse-string/
@@ -438,6 +471,36 @@ class Solution:
 
         return image
 ```
+
+### 905. Sort Array By Parity
+https://leetcode.com/problems/sort-array-by-parity/
+
+```python
+class Solution:
+    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+        
+        # set up pointer
+        i = 0
+        j = len(nums)-1
+
+        #  0  1  2  3  ## the index
+        # [3, 1, 2, 4] ## the nums list 
+        #  i     
+        #           j     
+
+        while i < j:
+            while nums[i] % 2 == 0 and i < j:
+                i += 1
+            while nums[j] % 2 != 0 and j > i:
+                j -= 1
+
+            nums[i],nums[j] = nums[j],nums[i]
+            i += 1
+            j -= 1
+            
+        return nums
+```
+
 ### 1089. Duplicate Zeros
 https://leetcode.com/problems/duplicate-zeros/
 
@@ -466,6 +529,101 @@ class Solution:
                 i += 1
         
         return arr
+```
+
+### 1470. Shuffle the Array
+https://leetcode.com/problems/shuffle-the-array/
+
+```python
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+
+        final_array = []
+
+        i = 0
+        j = n
+
+        print(i,j)
+        # [0,1,2,3,4,5]
+        # [2,5,1,3,4,7]
+        #  i 
+        #        j
+        
+        while i < n:
+            final_array.append(nums[i])
+            final_array.append(nums[j])
+            
+            j += 1 
+            i += 1 
+
+        return final_array
+```
+
+### 1528. Shuffle String
+https://leetcode.com/problems/shuffle-string/
+
+```python
+class Solution:
+    def restoreString(self, s: str, indices: List[int]) -> str:
+
+        # [0,1,2,3,4,5,6,7] # SHUFFLED STRING i will assign letter to right place
+        #    i 
+
+
+        # [4,5,6,7,0,2,1,3] # INDICES we need to use index to get letter
+        #  j
+        # [c,o,d,e,l,e,e,t] # S
+        #          j
+
+        i = j = 0
+
+        if len(s) == 1:
+            return s
+
+        shuffled_string = [x for x in range(len(indices))]
+
+        while i < len(indices)-1:
+            while j < len(s)-1:
+                if i != indices[j]:
+                    pass
+                    j += 1 
+                if i == indices[j]:
+                    shuffled_string[i] = s[j]
+                    i += 1
+                    j = 0
+            i += 1 
+        
+        print(shuffled_string)
+        return "".join(shuffled_string)
+
+```
+
+### 1662. Check If Two String Arrays are Equivalent
+https://leetcode.com/problems/check-if-two-string-arrays-are-equivalent/
+
+```python
+class Solution:
+    def arrayStringsAreEqual(self, word1: List[str], word2: List[str]) -> bool:
+
+        # concatenate so we can loop through the entire thing             
+        word1 = "".join(word1)
+        word2 = "".join(word2)
+        print(word1, word2) 
+
+
+        # check that words are same length
+        if len(word1) == len(word2):
+
+            # set up pointer
+            i = j = 0
+
+            # need index to iterate through list AND string
+            for x in range(len(word1)):
+                if word1[x] != word2[x]:
+                    return False
+            
+            return True
+
 ```
 
 ### 2000. Reverse Prefix of Word
@@ -622,31 +780,49 @@ class Solution:
         return concat_total
 ```
 
-### 905. Sort Array By Parity
-https://leetcode.com/problems/sort-array-by-parity/
+
+### 2824. Count Pairs Whose Sum is Less than Target
+https://leetcode.com/problems/count-pairs-whose-sum-is-less-than-target/
 
 ```python
 class Solution:
-    def sortArrayByParity(self, nums: List[int]) -> List[int]:
+    def countPairs(self, nums: List[int], target: int) -> int:
         
-        # set up pointer
         i = 0
-        j = len(nums)-1
+        j = i + 1 
 
-        #  0  1  2  3  ## the index
-        # [3, 1, 2, 4] ## the nums list 
-        #  i     
-        #           j     
+        count = 0
 
-        while i < j:
-            while nums[i] % 2 == 0 and i < j:
-                i += 1
-            while nums[j] % 2 != 0 and j > i:
-                j -= 1
+        while i < len(nums):
 
-            nums[i],nums[j] = nums[j],nums[i]
+            while j < len(nums):
+                # print("i",nums[i],"j",nums[j])
+                # print(count)
+                if nums[i] + nums[j] < target:
+                    count += 1 
+
+                j += 1 
+
             i += 1
-            j -= 1
-            
-        return nums
+            j = i + 1
+
+        return count
+```
+
+### 2942. Find Words Containing Character
+https://leetcode.com/problems/find-words-containing-character/ 
+
+```python
+class Solution:
+    def findWordsContaining(self, words: List[str], x: str) -> List[int]:
+        
+        final_array = []
+
+        for index in range(len(words)):
+            for letter in words[index]:
+                if x == letter:
+                    final_array.append(index)
+                    break
+
+        return final_array
 ```
