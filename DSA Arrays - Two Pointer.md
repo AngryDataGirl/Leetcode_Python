@@ -9,6 +9,7 @@
 - [345. Reverse Vowels of  String](#345-reverse-vowels-of--string)
 - [349. Intersection of Two Arrays](#349-intersection-of-two-arrays)
 - [392. Is Subsequence](#392-is-subsequence)
+- [445. Assign Cookies](#445-assign-cookies)
 - [557. Reverse Words in a String III](#557-reverse-words-in-a-string-iii)
 - [832. Flipping an Image](#832-flipping-an-image)
 - [905. Sort Array By Parity](#905-sort-array-by-parity)
@@ -386,6 +387,32 @@ class Solution:
 
         return False
 
+```
+
+### 445. Assign Cookies
+- you cannot increment a counter for an outer loop within the inner loop without a bunch of additional if/then statements
+- combining it is easier
+
+```python
+class Solution:
+    def findContentChildren(self, g: List[int], s: List[int]) -> int:
+        
+        g.sort()
+        s.sort()
+        kids = g
+        cookies = s
+
+        k = c = 0
+
+        # loops
+        while k < len(kids) and c < len(cookies):
+            if cookies[c] >= kids[k]:
+                k += 1 
+                c += 1 
+            else:
+                c += 1 
+        
+        return k
 ```
 
 ### 557. Reverse Words in a String III

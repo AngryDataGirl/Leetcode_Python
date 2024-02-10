@@ -1,3 +1,7 @@
+- [136. Single Number](#136-single-number)
+- [268. Missing Number](#268-missing-number)
+- [867. Transpose Matrix](#867-transpose-matrix)
+- [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
 - [1431. Kids With the Greatest Number of Candies](#1431-kids-with-the-greatest-number-of-candies)
 - [1684. Count the Number of Consistent Strings](#1684-count-the-number-of-consistent-strings)
 - [1732. Find the Highest Altitude](#1732-find-the-highest-altitude)
@@ -10,6 +14,98 @@
 - [2535. Difference Between Element Sum and Digit Sum of an Array](#2535-difference-between-element-sum-and-digit-sum-of-an-array)
 - [2798. Number of Employees Who Met the Target](#2798-number-of-employees-who-met-the-target)
 - [2828. Check if a String Is an Acronym of Words](#2828-check-if-a-string-is-an-acronym-of-words)
+- [3028. Ant on the Boundary](#3028-ant-on-the-boundary)
+
+### 136. Single Number
+https://leetcode.com/problems/single-number/
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+
+        dictionary = {}
+        
+        # assign x to dictionary 
+        for x in nums:
+            if x not in dictionary:
+                dictionary[x] = 0 
+
+        # count them
+        for x in nums:
+            if x in dictionary:
+                dictionary[x] += 1 
+
+        keys = [k for k, v in dictionary.items() if v == 1]
+
+        return int(keys[0])
+```
+
+### 268. Missing Number
+https://leetcode.com/problems/missing-number/
+
+```python
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        
+        nums.sort()
+        exp = [x for x in range(min(nums),len(nums)+1)]
+        
+        return sum(exp)-sum(nums)
+```
+
+### 867. Transpose Matrix
+https://leetcode.com/problems/transpose-matrix/
+
+```python
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+
+        n_matrix = len(matrix)
+        n_row = len(matrix[0])
+
+        outer_list = []
+
+        for i in range(n_row):
+            inner_list = []    
+            for j in range(n_matrix):
+                inner_list.append(matrix[j][i])
+
+            outer_list.append(inner_list)
+        
+        return outer_list
+```
+
+### 1207. Unique Number of Occurrences
+https://leetcode.com/problems/unique-number-of-occurrences/
+
+```python
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        
+        occurences = {}
+
+        # put count in dictionary
+        for x in arr:
+            if x not in occurences:
+                occurences[x] = 0 
+
+        # count occurences
+        for x in arr:
+            if x in occurences:
+                occurences[x] += 1 
+
+        occurences_list = []
+        for x in occurences.values():
+            occurences_list.append(x)
+
+        occurences_list.sort()
+        
+        unique = list(set(occurences_list))
+        unique.sort()
+
+        # then use set
+        return occurences_list == unique
+```
 
 ### 1431. Kids With the Greatest Number of Candies
 https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/
@@ -232,4 +328,23 @@ https://leetcode.com/problems/check-if-a-string-is-an-acronym-of-words/
 class Solution:
     def isAcronym(self, words: List[str], s: str) -> bool:
         return "".join([word[0] for word in words] ) == s
+```
+
+
+### 3028. Ant on the Boundary
+https://leetcode.com/problems/ant-on-the-boundary/description/
+
+```python
+class Solution:
+    def returnToBoundaryCount(self, nums: List[int]) -> int:
+        
+        boundary = 0
+        counter = 0
+
+        for x in nums:
+            boundary += x
+            if boundary == 0:
+                counter += 1 
+
+        return counter
 ```
