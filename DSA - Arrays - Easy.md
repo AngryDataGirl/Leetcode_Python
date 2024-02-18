@@ -1,9 +1,12 @@
+- [1. Two Sum](#1-two-sum)
+- [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 - [136. Single Number](#136-single-number)
 - [243. Shortest Word Distance](#243-shortest-word-distance)
   - [Approach #1 (Brute-force)](#approach-1-brute-force)
   - [Approach #2 (One-pass)](#approach-2-one-pass)
   - [Why not a while loop?](#why-not-a-while-loop)
 - [268. Missing Number](#268-missing-number)
+- [771. Jewels and Stones](#771-jewels-and-stones)
 - [867. Transpose Matrix](#867-transpose-matrix)
 - [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
 - [1431. Kids With the Greatest Number of Candies](#1431-kids-with-the-greatest-number-of-candies)
@@ -12,6 +15,7 @@
 - [1773. Count Items Matching a Rule](#1773-count-items-matching-a-rule)
 - [1816. Truncate Sentence](#1816-truncate-sentence)
 - [1920. Build Array from Permutation](#1920-build-array-from-permutation)
+- [1929. Concatenation of Array](#1929-concatenation-of-array)
 - [2011. Final Value of Variable After Performing Operations](#2011-final-value-of-variable-after-performing-operations)
 - [2185. Counting Words With a Given Prefix](#2185-counting-words-with-a-given-prefix)
 - [2114. Maximum Number of Words Found in Sentences](#2114-maximum-number-of-words-found-in-sentences)
@@ -19,6 +23,62 @@
 - [2798. Number of Employees Who Met the Target](#2798-number-of-employees-who-met-the-target)
 - [2828. Check if a String Is an Acronym of Words](#2828-check-if-a-string-is-an-acronym-of-words)
 - [3028. Ant on the Boundary](#3028-ant-on-the-boundary)
+
+
+### 1. Two Sum 
+https://leetcode.com/problems/two-sum/
+
+
+```python
+class Solution:
+  def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+    #create dictionary (which is the same as a hash table)
+    table = {}
+
+    #loop through list of numbers to store them in the dictionary, where num[i] is the number and i is the index for the number
+    #you can't flip them because the same number might show up twice, and you have to go into the dict to look at value to compare
+    for i in range(len(nums)):
+      table[nums[i]] = i
+      
+    #loop through the list of numbers again
+    for i in range(len(nums)):
+      
+      #to calculate the complement
+      complement = target - nums[i]
+
+      #check if complement in dictionary, and return the index of the complement, and index of original number
+      #the AND checks to see if complement index is same as original number index bc you can't use the same number twice
+      
+      if complement in table and table[complement] != i:
+        return [i, table[complement]]
+```
+
+
+### 121. Best Time to Buy and Sell Stock
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+
+        # tracking min price and max profit values
+        min_price = float('inf')
+        max_profit = 0
+
+        # loop through prices
+        for p in range(len(prices)):
+            # if the current price is smaller than min price, make that the new min price
+            if prices[p] < min_price:
+                min_price = prices[p]
+            # otherwise, subtract min price from the current price 
+            # if larger than max profit, assign it as new max profit
+            elif prices[p] - min_price > max_profit:
+                max_profit = prices[p] - min_price 
+        
+        return max_profit
+```
+
 
 ### 136. Single Number
 https://leetcode.com/problems/single-number/
@@ -115,6 +175,31 @@ class Solution:
         exp = [x for x in range(min(nums),len(nums)+1)]
         
         return sum(exp)-sum(nums)
+```
+
+### 771. Jewels and Stones
+https://leetcode.com/problems/jewels-and-stones/
+
+```python
+class Solution:
+    def numJewelsInStones(self, jewels: str, stones: str) -> int:
+        
+        # Create dictionairy of jewels, key = character, value = how many
+        jewels_dict = {}
+
+        for j in jewels:
+            jewels_dict[j] = 0
+
+        # For loop to iterate through stones string
+        for s in stones:
+            # If stone char is in jewels dict, add to value of key
+            if s in jewels_dict:
+                jewels_dict[s] += 1
+            
+        # return count of all dict values added together
+        # jewels_dict.values()
+
+        return sum(jewels_dict.values())
 ```
 
 ### 867. Transpose Matrix
@@ -289,6 +374,57 @@ class Solution:
             ans.append(nums[i])
 
         return ans
+```
+
+### 1929. Concatenation of Array
+https://leetcode.com/problems/concatenation-of-array/
+
+lol this is faster tho
+
+```python
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        return nums * 2
+```
+Second solution 
+
+1. create empy list of certain length to avoid out of range errors
+2. n is the increment to add to the index, based on original list length
+
+```python
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+
+        ans = [None] * len(nums)*2
+        print(ans)
+        n = len(nums)
+
+        for i in range(len(nums)):
+            print(nums[i])
+
+            ans[i] = nums[i]
+            ans[i + n] = nums[i]
+    
+        return ans
+```
+**Considerations:**
+You cannot assign to a list like `xs[i] = value`, unless the list already is initialized with at least `i+1` elements. 
+
+Instead, use `xs.append(value)` to add elements to the end of the list. (Though you could use the assignment notation if you were using a dictionary instead of a list.)
+
+**Creating an empty list:**
+
+```python
+xs = [None] * 10
+ xs
+[None, None, None, None, None, None, None, None, None, None]
+```
+
+**Assigning a value to an existing element of the above list:**
+```python
+xs[1] = 5
+xs
+[None, 5, None, None, None, None, None, None, None, None]
 ```
 
 ### 2011. Final Value of Variable After Performing Operations
