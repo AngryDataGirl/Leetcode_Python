@@ -1,4 +1,8 @@
 - [136. Single Number](#136-single-number)
+- [243. Shortest Word Distance](#243-shortest-word-distance)
+  - [Approach #1 (Brute-force)](#approach-1-brute-force)
+  - [Approach #2 (One-pass)](#approach-2-one-pass)
+  - [Why not a while loop?](#why-not-a-while-loop)
 - [268. Missing Number](#268-missing-number)
 - [867. Transpose Matrix](#867-transpose-matrix)
 - [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
@@ -39,6 +43,66 @@ class Solution:
 
         return int(keys[0])
 ```
+
+### 243. Shortest Word Distance
+https://leetcode.com/problems/shortest-word-distance/
+
+**Algorithm
+- Go through the entire array looking for the first word. 
+- Every time we find an occurrence of the first word, we search the entire array for the closest occurrence of the second word.
+ 
+#### Approach #1 (Brute-force)
+
+```python
+class Solution:
+
+    def shortestDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+
+        i = 0
+        j = 0
+
+        shortestDist = len(wordsDict)
+
+        for i in range(len(wordsDict)):
+            if wordsDict[i] == word1:
+                for j in range(len(wordsDict)):
+                    if wordsDict[j] == word2 and abs(i-j) < shortestDist:
+                        shortestDist = abs(i-j)
+
+        return shortestDist
+```
+
+#### Approach #2 (One-pass)
+
+**Algorithm**
+- you can do a single pass by checking if i is `word1` or `word2` instead of doing those in separate loops
+- we set the initial value of the index to `-1` because `0` is a valid index position
+
+```python
+class Solution:
+
+    def shortestDistance(self, wordsDict: List[str], word1: str, word2: str) -> int:
+
+        i= 0
+        i1 = -1
+        i2 = -1
+        shortestDist = len(wordsDict)
+
+        for i in range(len(wordsDict)):
+            if wordsDict[i] == word1:
+                i1 = i
+            elif wordsDict[i] == word2:
+                i2 = i
+                
+            if i1 != -1 and i2 != -1 and abs(i1-i2) < shortestDist :
+                shortestDist = abs(i1-i2)
+
+        return shortestDist
+```
+#### Why not a while loop? 
+
+it will break and stop looping when you need it to continue going through the list in case there are other occurrences of the word that are closer 
+
 
 ### 268. Missing Number
 https://leetcode.com/problems/missing-number/
