@@ -7,7 +7,10 @@
   - [Why not a while loop?](#why-not-a-while-loop)
 - [268. Missing Number](#268-missing-number)
 - [771. Jewels and Stones](#771-jewels-and-stones)
+- [804. Unique Morse Code Words](#804-unique-morse-code-words)
+- [819. Most Common Word](#819-most-common-word)
 - [867. Transpose Matrix](#867-transpose-matrix)
+- [929. Unique Email Addresses](#929-unique-email-addresses)
 - [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
 - [1431. Kids With the Greatest Number of Candies](#1431-kids-with-the-greatest-number-of-candies)
 - [1684. Count the Number of Consistent Strings](#1684-count-the-number-of-consistent-strings)
@@ -201,6 +204,76 @@ class Solution:
 
         return sum(jewels_dict.values())
 ```
+### 804. Unique Morse Code Words
+https://leetcode.com/problems/unique-morse-code-words/
+
+```python
+class Solution:
+    def uniqueMorseRepresentations(self, words: List[str]) -> int:
+        dict = {
+            "a": ".-",
+            "b": "-...",
+            "c": "-.-.",
+            "d": "-..",
+            "e": ".",
+            "f": "..-.",
+            "g": "--.",
+            "h": "....",
+            "i": "..",
+            "j": ".---",
+            "k": "-.-",
+            "l": ".-..",
+            "m": "--",
+            "n": "-.",
+            "o": "---",
+            "p": ".--.",
+            "q": "--.-",
+            "r": ".-.",
+            "s": "...",
+            "t": "-",
+            "u": "..-",
+            "v": "...-",
+            "w": ".--",
+            "x": "-..-",
+            "y": "-.--",
+            "z": "--..",
+        }
+
+        morse_words = []
+        for x in range(len(words)):
+            word = [ ]
+            for letter in words[x]:
+                word.append(dict[letter])
+            
+            morse_words.append("".join(word))
+            
+        return len(set(morse_words))
+```
+
+### 819. Most Common Word
+https://leetcode.com/problems/most-common-word/
+
+```python
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        words = {}
+
+        symbols = "!?',;."
+        for i in symbols:
+            paragraph = paragraph.replace(i, " ")
+
+        paragraph = paragraph.lower().split()
+
+        for x in paragraph:
+            if x not in words and x not in banned:
+                words[x] = 0
+        
+        for x in paragraph:
+            if x in words:
+                words[x] += 1 
+
+        return str(max(words, key=words.get))
+```
 
 ### 867. Transpose Matrix
 https://leetcode.com/problems/transpose-matrix/
@@ -222,6 +295,39 @@ class Solution:
             outer_list.append(inner_list)
         
         return outer_list
+```
+
+### 929. Unique Email Addresses
+https://leetcode.com/problems/unique-email-addresses/
+
+```python
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+         
+        unique_emails_list = []
+
+        for x in emails:
+            email1 = x.split("@",1)
+            domain = email1[1]
+            email1 = email1[0].replace(".","")
+            email2 = email1.split("+",1)[0]
+
+            unique_email = email2+"@"+domain
+            unique_emails_list.append(unique_email)
+
+        unique_emails_dict = {}
+        
+        for x in unique_emails_list:
+            if x not in unique_emails_dict:
+                unique_emails_dict[x] = 0
+        
+        for x in unique_emails_list:
+            if x in unique_emails_dict:
+                unique_emails_dict[x] += 1 
+        
+        print(unique_emails_dict)
+        
+        return len(unique_emails_dict)
 ```
 
 ### 1207. Unique Number of Occurrences
