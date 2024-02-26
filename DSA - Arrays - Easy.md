@@ -13,16 +13,24 @@
 - [929. Unique Email Addresses](#929-unique-email-addresses)
 - [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
 - [1431. Kids With the Greatest Number of Candies](#1431-kids-with-the-greatest-number-of-candies)
+- [1436. Destination City](#1436-destination-city)
+- [1464. Maximum Product of Two Elements in an Array](#1464-maximum-product-of-two-elements-in-an-array)
+- [1637. Widest Vertical Area Between Two Points Containing No Points](#1637-widest-vertical-area-between-two-points-containing-no-points)
 - [1684. Count the Number of Consistent Strings](#1684-count-the-number-of-consistent-strings)
 - [1732. Find the Highest Altitude](#1732-find-the-highest-altitude)
+- [1748. Sum of Unique Elements](#1748-sum-of-unique-elements)
 - [1773. Count Items Matching a Rule](#1773-count-items-matching-a-rule)
 - [1816. Truncate Sentence](#1816-truncate-sentence)
+- [1913. Maximum Product Difference Between Two Pairs](#1913-maximum-product-difference-between-two-pairs)
 - [1920. Build Array from Permutation](#1920-build-array-from-permutation)
 - [1929. Concatenation of Array](#1929-concatenation-of-array)
 - [2011. Final Value of Variable After Performing Operations](#2011-final-value-of-variable-after-performing-operations)
+- [2089. Find Target Indices After Sorting Array](#2089-find-target-indices-after-sorting-array)
 - [2185. Counting Words With a Given Prefix](#2185-counting-words-with-a-given-prefix)
 - [2114. Maximum Number of Words Found in Sentences](#2114-maximum-number-of-words-found-in-sentences)
 - [2535. Difference Between Element Sum and Digit Sum of an Array](#2535-difference-between-element-sum-and-digit-sum-of-an-array)
+- [2678. Number of Senior Citizens](#2678-number-of-senior-citizens)
+- [2706. Buy Two Chocolates](#2706-buy-two-chocolates)
 - [2798. Number of Employees Who Met the Target](#2798-number-of-employees-who-met-the-target)
 - [2828. Check if a String Is an Acronym of Words](#2828-check-if-a-string-is-an-acronym-of-words)
 - [3028. Ant on the Boundary](#3028-ant-on-the-boundary)
@@ -381,6 +389,60 @@ class Solution:
         return result
 ```
 
+### 1436. Destination City
+https://leetcode.com/problems/destination-city/
+
+```python
+class Solution:
+    def destCity(self, paths: List[List[str]]) -> str:
+        
+        destinations = []
+        leaving_city = []
+
+        for x in range(len(paths)):
+            destinations.append(paths[x][1])
+            leaving_city.append(paths[x][0])
+
+        for x in range(len(destinations)):
+            if destinations[x] not in leaving_city:
+                
+                return destinations[x]
+```
+
+### 1464. Maximum Product of Two Elements in an Array
+https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/
+
+```python
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        nums.sort(reverse=True)
+        return (nums[0]-1) * (nums[1]-1)
+```
+
+### 1637. Widest Vertical Area Between Two Points Containing No Points
+https://leetcode.com/problems/widest-vertical-area-between-two-points-containing-no-points/
+
+```python
+class Solution:
+    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:
+        
+        x_list=[]
+        
+        for point in points:
+            x_list.append(point[0])
+
+        x_list.sort()
+
+        widest_area = 0
+        
+        for x in range(len(x_list)-1):
+             
+            if x_list[x+1]-x_list[x] > widest_area:
+                widest_area = x_list[x+1]-x_list[x]
+        
+        return widest_area
+```
+
 ### 1684. Count the Number of Consistent Strings
 https://leetcode.com/problems/count-the-number-of-consistent-strings/
 
@@ -430,6 +492,30 @@ class Solution:
         return max_altitude
 ```
 
+### 1748. Sum of Unique Elements
+https://leetcode.com/problems/sum-of-unique-elements/
+
+```python
+class Solution:
+    def sumOfUnique(self, nums: List[int]) -> int:
+        unique_dict = {}
+        sum_unique = 0
+
+        for x in nums:
+            if x not in unique_dict:
+                unique_dict[x] = 0 
+        
+        for x in nums:
+            if x in unique_dict:
+                unique_dict[x] += 1 
+        
+        for x in unique_dict:
+            if unique_dict[x] == 1:
+                sum_unique += x
+        
+        return sum_unique
+```
+
 ### 1773. Count Items Matching a Rule
 https://leetcode.com/problems/count-items-matching-a-rule/
 
@@ -465,6 +551,21 @@ class Solution:
             truncated.append(s.split()[word])
         
         return " ".join(truncated)
+```
+
+### 1913. Maximum Product Difference Between Two Pairs
+https://leetcode.com/problems/maximum-product-difference-between-two-pairs/
+ 
+```python
+class Solution:
+    def maxProductDifference(self, nums: List[int]) -> int:
+
+        nums.sort()
+
+        product1 = nums[len(nums)-1] * nums[len(nums)-2]        
+        product2 = nums[0] * nums[1]
+
+        return product1-product2
 ```
 
 ### 1920. Build Array from Permutation
@@ -553,6 +654,25 @@ class Solution:
 
 ```
 
+### 2089. Find Target Indices After Sorting Array
+https://leetcode.com/problems/find-target-indices-after-sorting-array/
+
+```python
+class Solution:
+    def targetIndices(self, nums: List[int], target: int) -> List[int]:
+        
+        nums.sort()
+
+        target_indices = []
+        
+        for x in range(len(nums)):
+            print(nums[x])
+            if nums[x] == target:
+                target_indices.append(x)
+
+        return target_indices
+```
+
 ### 2185. Counting Words With a Given Prefix
 https://leetcode.com/problems/counting-words-with-a-given-prefix/
 
@@ -609,6 +729,36 @@ class Solution:
                 digit_sum += int(letter)
 
         return element_sum - digit_sum
+```
+
+### 2678. Number of Senior Citizens
+https://leetcode.com/problems/number-of-senior-citizens/
+
+```python
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        counter = 0 
+
+        for x in details:
+            if int(x[11:13]) > 60:
+                counter += 1 
+        
+        return counter
+```
+
+### 2706. Buy Two Chocolates
+https://leetcode.com/problems/buy-two-chocolates/
+
+```python
+class Solution:
+    def buyChoco(self, prices: List[int], money: int) -> int:
+
+        prices.sort()
+
+        if prices[0] + prices[1] <= money:
+            return money - (prices[0] + prices[1])
+        else:
+            return money 
 ```
 
 ### 2798. Number of Employees Who Met the Target
