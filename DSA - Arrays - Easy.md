@@ -6,12 +6,16 @@
   - [Approach #2 (One-pass)](#approach-2-one-pass)
   - [Why not a while loop?](#why-not-a-while-loop)
 - [268. Missing Number](#268-missing-number)
+- [500. Keyboard Row](#500-keyboard-row)
 - [771. Jewels and Stones](#771-jewels-and-stones)
 - [804. Unique Morse Code Words](#804-unique-morse-code-words)
 - [819. Most Common Word](#819-most-common-word)
 - [867. Transpose Matrix](#867-transpose-matrix)
 - [929. Unique Email Addresses](#929-unique-email-addresses)
+- [1051. Height Checker](#1051-height-checker)
+- [1160. Find Words That Can Be Formed by Characters](#1160-find-words-that-can-be-formed-by-characters)
 - [1207. Unique Number of Occurrences](#1207-unique-number-of-occurrences)
+- [1287. Element Appearing More Than 25% In Sorted Array](#1287-element-appearing-more-than-25-in-sorted-array)
 - [1431. Kids With the Greatest Number of Candies](#1431-kids-with-the-greatest-number-of-candies)
 - [1436. Destination City](#1436-destination-city)
 - [1464. Maximum Product of Two Elements in an Array](#1464-maximum-product-of-two-elements-in-an-array)
@@ -31,8 +35,10 @@
 - [2535. Difference Between Element Sum and Digit Sum of an Array](#2535-difference-between-element-sum-and-digit-sum-of-an-array)
 - [2678. Number of Senior Citizens](#2678-number-of-senior-citizens)
 - [2706. Buy Two Chocolates](#2706-buy-two-chocolates)
+- [2733. Neither Minimum nor Maximum](#2733-neither-minimum-nor-maximum)
 - [2798. Number of Employees Who Met the Target](#2798-number-of-employees-who-met-the-target)
 - [2828. Check if a String Is an Acronym of Words](#2828-check-if-a-string-is-an-acronym-of-words)
+- [2951. Find the Peaks](#2951-find-the-peaks)
 - [3028. Ant on the Boundary](#3028-ant-on-the-boundary)
 
 
@@ -188,6 +194,28 @@ class Solution:
         return sum(exp)-sum(nums)
 ```
 
+### 500. Keyboard Row
+https://leetcode.com/problems/keyboard-row/
+
+```python
+class Solution:
+    def findWords(self, words: List[str]) -> List[str]:
+        first_row = ['q','w','e','r','t','y','u','i','o','p']
+        second_row = ['a','s','d','f','g','h','j','k','l']
+        third_row = ['z','x','c','v','b','n','m']
+
+        keyboard_words = []
+        for word in range(len(words)):
+            if set(words[word].lower()).issubset(first_row):
+                keyboard_words.append(words[word])
+            elif set(words[word].lower()).issubset(second_row):
+                keyboard_words.append(words[word])
+            elif set(words[word].lower()).issubset(third_row):
+                keyboard_words.append(words[word])
+
+        return keyboard_words
+```
+
 ### 771. Jewels and Stones
 https://leetcode.com/problems/jewels-and-stones/
 
@@ -338,6 +366,68 @@ class Solution:
         return len(unique_emails_dict)
 ```
 
+### 1051. Height Checker
+https://leetcode.com/problems/height-checker/
+
+```python
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        
+        sorted_heights = [x for x in heights]
+        sorted_heights.sort()
+
+        counter = 0
+        for x in range(len(heights)):
+            if heights[x] != sorted_heights[x]:
+                counter += 1 
+        
+        return counter
+```
+
+### 1160. Find Words That Can Be Formed by Characters
+https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+
+```python
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+
+        chars_dict = {}
+
+        # create the dictionary   
+        def char_dict_function():     
+            for x in chars:
+                if x not in chars_dict:
+                    chars_dict[x] = 0    
+            for x in chars:
+                if x in chars_dict:
+                    chars_dict[x] += 1 
+
+        char_dict_function()
+
+        # empty list for result words
+        good_words = []
+
+        # loop through words list 
+        for word in range(len(words)):  
+            i = 0 
+            while i < len(words[word]) :
+
+                if words[word][i] in chars_dict and chars_dict[words[word][i]] > 0:
+                    chars_dict[words[word][i]] -= 1                    
+                else:
+                    break
+                i += 1 
+
+                if i == len(words[word]):
+                    good_words.append(words[word])
+                    
+                #     print(chars_dict)
+            chars_dict = {}
+            char_dict_function()
+
+        return len("".join(good_words))
+```
+
 ### 1207. Unique Number of Occurrences
 https://leetcode.com/problems/unique-number-of-occurrences/
 
@@ -368,6 +458,30 @@ class Solution:
 
         # then use set
         return occurences_list == unique
+```
+
+### 1287. Element Appearing More Than 25% In Sorted Array
+https://leetcode.com/problems/element-appearing-more-than-25-in-sorted-array/
+
+```python
+class Solution:
+    def findSpecialInteger(self, arr: List[int]) -> int:
+        
+        count = len(arr)/ 4 
+
+        dict = {}
+
+        for x in arr:
+            if x not in dict:
+                dict[x] = 0 
+
+        for x in arr:
+            if x in dict:
+                dict[x] += 1 
+
+        for key, value in dict.items():
+            if value > count:
+                return key
 ```
 
 ### 1431. Kids With the Greatest Number of Candies
@@ -761,6 +875,20 @@ class Solution:
             return money 
 ```
 
+### 2733. Neither Minimum nor Maximum
+https://leetcode.com/problems/neither-minimum-nor-maximum/
+
+```python
+class Solution:
+    def findNonMinOrMax(self, nums: List[int]) -> int:
+        
+        for x in range(len(nums)):
+            if nums[x] != max(nums) and nums[x] != min(nums):
+                return nums[x]
+             
+        return -1
+```
+
 ### 2798. Number of Employees Who Met the Target
 https://leetcode.com/problems/number-of-employees-who-met-the-target/
 
@@ -786,6 +914,21 @@ class Solution:
         return "".join([word[0] for word in words] ) == s
 ```
 
+### 2951. Find the Peaks
+https://leetcode.com/problems/find-the-peaks/
+
+```python
+class Solution:
+    def findPeaks(self, mountain: List[int]) -> List[int]:
+        
+        peaks = []
+
+        for x in range(1,len(mountain)-1):
+            if mountain[x-1] < mountain[x] > mountain[x+1]:
+                peaks.append(x)
+
+        return peaks
+```
 
 ### 3028. Ant on the Boundary
 https://leetcode.com/problems/ant-on-the-boundary/description/
