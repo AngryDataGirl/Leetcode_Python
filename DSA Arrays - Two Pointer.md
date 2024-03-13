@@ -14,10 +14,12 @@
 - [832. Flipping an Image](#832-flipping-an-image)
 - [905. Sort Array By Parity](#905-sort-array-by-parity)
 - [1089. Duplicate Zeros](#1089-duplicate-zeros)
+- [1099. Two Sum Less Than K](#1099-two-sum-less-than-k)
 - [1470. Shuffle the Array](#1470-shuffle-the-array)
 - [1528. Shuffle String](#1528-shuffle-string)
 - [1662. Check If Two String Arrays are Equivalent](#1662-check-if-two-string-arrays-are-equivalent)
 - [2000. Reverse Prefix of Word](#2000-reverse-prefix-of-word)
+- [2006. Count Number of Pairs With Absolute Difference K](#2006-count-number-of-pairs-with-absolute-difference-k)
 - [2108. Find First Palindromic String in the Array](#2108-find-first-palindromic-string-in-the-array)
   - [2441. 2441. Largest Positive Integer That Exists With Its Negative](#2441-2441-largest-positive-integer-that-exists-with-its-negative)
   - [2540. Minimum Common Value](#2540-minimum-common-value)
@@ -558,6 +560,35 @@ class Solution:
         return arr
 ```
 
+### 1099. Two Sum Less Than K
+https://leetcode.com/problems/two-sum-less-than-k/
+
+```python
+class Solution:
+    def twoSumLessThanK(self, nums: List[int], k: int) -> int:
+        
+        nums.sort()
+
+        i = 0 
+        j = len(nums) - 1
+        max_sum = -1 
+
+        # [1, 8, 23, 24, 33, 34, 54, 75]
+        #     i               
+        #                             j
+
+
+        while i < j:
+            sum = nums[i] + nums[j]
+            if sum < k:
+                max_sum = max(max_sum,sum)
+                i += 1 
+            else:
+                j -= 1 
+
+        return max_sum
+```
+
 ### 1470. Shuffle the Array
 https://leetcode.com/problems/shuffle-the-array/
 
@@ -693,6 +724,30 @@ class Solution:
 
         return ''.join(word_to_list)
 ```
+
+### 2006. Count Number of Pairs With Absolute Difference K
+https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/
+
+```python
+class Solution:
+    def countKDifference(self, nums: List[int], k: int) -> int:
+
+        i = 0
+        j = i + 1 
+
+        pairs = 0 
+
+        while i < len(nums):
+            while j < len(nums):
+                if abs(nums[i] - nums[j]) == k:
+                    pairs += 1 
+                j += 1
+            i += 1
+            j = i + 1 
+          
+        return pairs
+```
+
 ### 2108. Find First Palindromic String in the Array
 https://leetcode.com/problems/find-first-palindromic-string-in-the-array/
 
