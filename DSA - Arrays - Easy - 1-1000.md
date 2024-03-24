@@ -5,6 +5,7 @@
   - [Approach #1 (Brute-force)](#approach-1-brute-force)
   - [Approach #2 (One-pass)](#approach-2-one-pass)
   - [Why not a while loop?](#why-not-a-while-loop)
+- [258. Add Digits](#258-add-digits)
 - [268. Missing Number](#268-missing-number)
 - [448. Find All Numbers Disappeared in an Array](#448-find-all-numbers-disappeared-in-an-array)
 - [500. Keyboard Row](#500-keyboard-row)
@@ -152,6 +153,28 @@ class Solution:
 #### Why not a while loop? 
 
 it will break and stop looping when you need it to continue going through the list in case there are other occurrences of the word that are closer 
+
+
+### 258. Add Digits
+https://leetcode.com/problems/add-digits/
+
+```python
+class Solution:
+    def addDigits(self, num: int) -> int:
+        
+        numsum = 0
+        numlen = len(str(num))
+
+        while numlen >= 2:
+            for x in str(num):
+                numsum += int(x)
+  
+            num = numsum
+            numsum = 0
+            numlen = len(str(num))
+
+        return num
+```
 
 
 ### 268. Missing Number

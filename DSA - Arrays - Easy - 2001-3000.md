@@ -2,9 +2,11 @@
 - [2089. Find Target Indices After Sorting Array](#2089-find-target-indices-after-sorting-array)
 - [2185. Counting Words With a Given Prefix](#2185-counting-words-with-a-given-prefix)
 - [2114. Maximum Number of Words Found in Sentences](#2114-maximum-number-of-words-found-in-sentences)
+- [2303. Calculate Amount Paid in Taxes](#2303-calculate-amount-paid-in-taxes)
 - [2418. Sort the People](#2418-sort-the-people)
 - [2446. 2446. Determine if Two Events Have Conflict](#2446-2446-determine-if-two-events-have-conflict)
 - [2535. Difference Between Element Sum and Digit Sum of an Array](#2535-difference-between-element-sum-and-digit-sum-of-an-array)
+- [2660. Determine the Winner of a Bowling Game](#2660-determine-the-winner-of-a-bowling-game)
 - [2678. Number of Senior Citizens](#2678-number-of-senior-citizens)
 - [2706. Buy Two Chocolates](#2706-buy-two-chocolates)
 - [2733. Neither Minimum nor Maximum](#2733-neither-minimum-nor-maximum)
@@ -13,6 +15,7 @@
 - [2951. Find the Peaks](#2951-find-the-peaks)
 - [3005. Count Elements With Maximum Frequency](#3005-count-elements-with-maximum-frequency)
 - [3028. Ant on the Boundary](#3028-ant-on-the-boundary)
+- [3074. Apple Redistribution into Boxes](#3074-apple-redistribution-into-boxes)
 
 ### 2011. Final Value of Variable After Performing Operations
 https://leetcode.com/problems/final-value-of-variable-after-performing-operations/
@@ -90,6 +93,35 @@ class Solution:
 
 ```
 
+### 2303. Calculate Amount Paid in Taxes
+https://leetcode.com/problems/calculate-amount-paid-in-taxes/ 
+
+```python
+class Solution:
+    def calculateTax(self, brackets: List[List[int]], income: int) -> float:
+
+        total_tax = 0
+        last_bracket = 0
+
+        for x in range(len(brackets)):
+            
+            tax_rate = brackets[x][1]/100
+            curr_bracket = brackets[x][0]
+            # print("[", last_bracket,",", curr_bracket,"]","tax rate",tax_rate,"income", income)
+            
+            taxable_income = min(curr_bracket, income)-last_bracket
+            # print("taxable income",taxable_income)
+            if taxable_income > 0 :
+                tax = taxable_income * tax_rate
+                # print(tax)
+                total_tax += tax 
+                last_bracket = curr_bracket
+
+            else:
+                break
+        return total_tax 
+```
+
 ### 2418. Sort the People
 https://leetcode.com/problems/sort-the-people/
 ```python
@@ -145,6 +177,39 @@ class Solution:
                 digit_sum += int(letter)
 
         return element_sum - digit_sum
+```
+
+### 2660. Determine the Winner of a Bowling Game
+https://leetcode.com/problems/determine-the-winner-of-a-bowling-game/
+
+```sql
+class Solution:
+    def isWinner(self, player1: List[int], player2: List[int]) -> int:
+        
+        def score(player):
+            score = 0
+            for x in range(len(player)):
+                # print("index: ",x)
+                if (x >= 1 and player[x-1] == 10) or (x >= 2 and player[x-2] == 10):
+                    score += 2*player[x]
+                    # print(2*player[x],"doubled, added to score")
+                else:
+                    score += player[x]
+                    # print(player[x],"added to score")
+            return score
+        
+        p1 = score(player1)
+        # print("player1 score",p1)
+
+        p2 = score(player2)
+        # print("player2 score",p2)
+        
+        if p1 > p2:
+            return 1
+        elif p1 < p2:
+            return 2 
+        else:
+            return 0
 ```
 
 ### 2678. Number of Senior Citizens
@@ -276,4 +341,28 @@ class Solution:
                 counter += 1 
 
         return counter
+```
+
+### 3074. Apple Redistribution into Boxes
+https://leetcode.com/problems/apple-redistribution-into-boxes/
+
+```python
+class Solution:
+    def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
+        
+        # sort the boxes by capacity , biggest box first 
+        capacity.sort(reverse=True)
+
+        # store variables
+        min_boxes = 0
+        sum_capacity = 0
+        i = 0
+
+        # loop  
+        while i < len(capacity) and sum_capacity < sum(apple):
+            min_boxes += 1 
+            sum_capacity += capacity[i]
+            i += 1 
+
+        return min_boxes
 ```
