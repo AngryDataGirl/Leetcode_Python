@@ -1,11 +1,11 @@
- #TwoPointer #DesignPattern
+# Two Pointer Code Template 
 
-- #TwoPointer is typically used for searching pairs in a sorted array.
+- Two Pointer is typically used for searching pairs in a sorted array.
 - These problems have several variations:
 	- 1 slow runner and 1 fast runner
 	- 1 pointer from the beginning, 1 pointer from the end 
 
- #TwoPointer/OppositeEnds
+ ## Two Pointer - Opposite Ends
 
 ```python
 
@@ -25,8 +25,7 @@ def fn(arr):
 
 ```
 
-  #TwoPointer/ExhaustBoth
- 
+## Two Pointer - Exhaust Both
 
 ```python
 
