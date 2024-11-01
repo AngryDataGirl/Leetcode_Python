@@ -1,28 +1,31 @@
 # Concepts and Learning List
 
-## Data Structure
+## Data Structure (linear)
 
-### arrays (static linear data structure)
-Arrays and strings are two of the most fundamental data structures seen in algorithm problems. They're very similar when it comes to solving problems as they're both an ordered collection of elements that can be iterated over. 
+|Data Structure|Type|Description|Link|Examples|
+|-|-|-|-|-|
+|arrays|static linear data structure|an ordered collection of elements that can be iterated over|||
+|hash map||maps keys to values, allowing for efficient operations like lookup, insertion, and deletion.||
+|strings||||
+|matrix||||
+|queue|dynamic linear data structure|||
+|stack|dynamic linear data structure|||
+|linked list|dynamic linear data structure|||
 
-### strings
-### matrix
-### Queue (dynamic linear data structure)
-### Stack (dynamic linear data structure)
-### Linked list (dynamic linear data structure)
-
-
-### Tree (non-linear data structure)
-### Binary Tree (non-linear data structure)
-### Graph (non-linear data structure)  
+## Data Structure (non-linear)
+|Data Structure|Type|Description|Link|Examples|
+|-|-|-|-|-|
+|tree|non-linear data structure|||
+|graph|non-linear data structure|||
+|binary tree|non-linear data structure|||
+|heap|complete binary tree data structure|binary trees for which every parent node has a value less than or equal to any of its children. ||
 
 ## Algorithms
-
-### Linear search algorithms 
-ie for data sorted linearly (use linear or binary)
-
-### Non Linear search algorithms
-ie graph traversal algorithms
+|Algorithm|Used with|Description|Link|Examples|
+|-|-|-|-|-|
+|bfs|searching graphs and trees|||
+|dfs|searching graphs and trees|||
+|greedy|make locally optimal choices at each step with the hope of finding a global optimum solution|||
 
 ## Techniques
 
@@ -39,20 +42,8 @@ ie graph traversal algorithms
 Prefix sum is a sequence of numbers that represents the sum of all elements up to a specific index in an original sequence of numbers. Prefix sum, also known as cumulative sum, is a data structure technique used in computer science, particularly in algorithms and data structures.
 
 ### dynamic programming (technique)
+solve complex problems by breaking them down into simpler subproblems
 
+### bit manipulation
 
-# hash maps
-A hash map is a data structure that maps keys to values, allowing for efficient operations like lookup, insertion, and deletion. Hash maps are widely used in various programming applications due to their ability to provide fast access times.
-
-
-# stacks and queues
-
-# trees and graphs 
-
-# heaps
-
-# greedy 
-
-# big manipulation
-
-# backtracking
+### backtracking
